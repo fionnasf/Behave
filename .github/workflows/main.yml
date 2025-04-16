@@ -1,0 +1,27 @@
+name: Behave Pays Demo
+on: [push, pull_request]
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python 3.13.2
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.13.2'
+
+      - name: Chrome Install
+        uses: browser-actions/setup-chrome@latest
+        with:
+            chrome-version: 'stable'
+
+      - name: Pip Install
+        run: 
+            python -m pip install --upgrade pip
+            pip install -r requirements.txt
+
+      - name: Behave Pays tests
+        run: |
+            behave
